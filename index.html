@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alangkaar | Professional Carpentry Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#8B4513',
+                        secondary: '#D2691E',
+                        accent: '#CD853F',
+                        light: '#F5DEB3',
+                        dark: '#654321'
+                    },
+                    fontFamily: {
+                        'serif': ['Playfair Display', 'serif'],
+                        'sans': ['Poppins', 'sans-serif']
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'slide-left': 'slideLeft 0.8s ease-out',
+                        'slide-right': 'slideRight 0.8s ease-out',
+                        'zoom-in': 'zoomIn 0.8s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' }
+                        },
+                        slideLeft: {
+                            '0%': { transform: 'translateX(30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        slideRight: {
+                            '0%': { transform: 'translateX(-30px)', opacity: '0' },
+                            '100%': { transform: 'translateX(0)', opacity: '1' }
+                        },
+                        zoomIn: {
+                            '0%': { transform: 'scale(0.9)', opacity: '0' },
+                            '100%': { transform: 'scale(1)', opacity: '1' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .video-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .gradient-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 69, 19, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .faq-item {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .faq-answer {
+            
+            transition: max-height 0.4s ease-out;
+        }
+        .rotate-180 {
+    transform: rotate(180deg);
+  }
+        
+        /* Mobile Menu Styles */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: white;
+            z-index: 100;
+            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+        }
+        .mobile-menu.active {
+            right: 0;
+        }
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 640px) {
+            .parallax {
+                background-attachment: scroll;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans">
+    <!-- Header -->
+    <header class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <h1 class="text-xl sm:text-2xl font-serif font-bold text-dark"><span class="text-primary">Alangkaar</span></h1>
+                </div>
+                
+                <nav class="hidden md:flex space-x-6 lg:space-x-9 py-4">
+                    <a href="#home" class="text-dark hover:text-primary font-medium transition-colors">Home</a>
+                    <a href="#about" class="text-dark hover:text-primary font-medium transition-colors">About</a>
+                    <a href="#services" class="text-dark hover:text-primary font-medium transition-colors">Services</a>
+                    <a href="#gallery" class="text-dark hover:text-primary font-medium transition-colors">Gallery</a>
+                    <a href="#testimonials" class="text-dark hover:text-primary font-medium transition-colors">Testimonials</a>
+                    <a href="#contact" class="text-dark hover:text-primary font-medium transition-colors">Contact</a>
+                </nav>
+                
+                <div class="hidden md:block">
+                    <a href="#contact" class="bg-primary hover:bg-dark text-white px-4 sm:px-6 py-2 rounded-full font-medium transition-colors text-sm sm:text-base">Get Quote</a>
+                </div>
+                
+                <button class="md:hidden text-dark text-2xl mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu-overlay"></div>
+    <div class="mobile-menu">
+        <button class="absolute top-4 right-4 text-2xl text-dark mobile-menu-close">
+            <i class="fas fa-times"></i>
+        </button>
+        <nav class="flex flex-col space-y-6">
+            <a href="#home" class="text-dark hover:text-primary font-medium text-lg transition-colors mobile-nav-link">Home</a>
+            <a href="#about" class="text-dark hover:text-primary font-medium text-lg transition-colors mobile-nav-link">About</a>
+            <a href="#services" class="text-dark hover:text-primary font-medium text-lg transition-colors mobile-nav-link">Services</a>
+            <a href="#gallery" class="text-dark hover:text-primary font-medium text-lg transition-colors mobile-nav-link">Gallery</a>
+            <a href="#testimonials" class="text-dark hover:text-primary font-medium text-lg transition-colors mobile-nav-link">Testimonials</a>
+            <a href="#contact" class="text-dark hover:text-primary font-medium text-lg transition-colors mobile-nav-link">Contact</a>
+            <div class="pt-4">
+                <a href="#contact" class="block w-full bg-primary hover:bg-dark text-white text-center py-3 rounded-full font-medium transition-colors">Get Quote</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center text-white overflow-hidden pt-16">
+        <!-- Video Background -->
+        <video autoplay muted loop playsinline class="video-background">
+          <source src="images/20.mp4" type="video/mp4">
+          <!-- Fallback image if video doesn't load -->
+          <div class="absolute inset-0 bg-gray-800"></div>
+      </video>
+        <div class="absolute inset-0 gradient-overlay"></div>
+        
+        <div class="container mx-auto px-4 sm:px-6 z-10 text-center">
+            <h2 class="text-3xl sm:text-5xl md:text-7xl font-serif font-bold mb-4 sm:mb-6 animate-slide-up">Celebrate Your Dream Wedding at sttemple</h2>
+            <p class="text-lg sm:text-xl md:text-2xl mb-8 sm:mb-10 max-w-3xl mx-auto px-2 animate-slide-up" style="animation-delay: 0.2s;">Host your special day in the most elegant wedding venue in Singapore, surrounded by luxury, style, and heartfelt service.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 animate-slide-up" style="animation-delay: 0.4s;">
+                <a href="#gallery" class="bg-primary hover:bg-dark text-white px-6 sm:px-8 py-3 rounded-full font-medium transition-colors text-base sm:text-lg">View Our Work</a>
+                <a href="#contact" class="bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white px-6 sm:px-8 py-3 rounded-full font-medium transition-colors text-base sm:text-lg border border-white/30">Get Started</a>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-6 sm:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-white text-xl sm:text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 sm:py-20 bg-light">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
+                <div class="reveal order-2 lg:order-1">
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-dark mb-4 sm:mb-6">Welcome to <span class="text-primary">Alangkaar</span></h2>
+                    <p class="text-base sm:text-lg text-gray-700 mb-4 sm:mb-6">At sttemple, we believe your wedding deserves nothing less than perfection. Nestled in the heart of Singapore, our venue blends timeless elegance with modern amenities creating the ideal backdrop for your big day. Whether you’re hosting a grand celebration or an intimate gathering, our experienced event team ensures a seamless experience from start to finish.</p>
+                    <p class="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8"></p>
+                    
+                    <div class="grid grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8">
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 sm:mb-2">15+</div>
+                            <div class="text-sm sm:text-base text-gray-700">Years Experience</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 sm:mb-2">300+</div>
+                            <div class="text-sm sm:text-base text-gray-700">Happy Clients</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-1 sm:mb-2">500+</div>
+                            <div class="text-sm sm:text-base text-gray-700">Projects Completed</div>
+                        </div>
+                    </div>
+                    
+                    <a href="#contact" class="inline-block bg-primary hover:bg-dark text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-colors text-sm sm:text-base">Learn More</a>
+                </div>
+                
+                <div class="relative reveal order-1 lg:order-2" style="animation-delay: 0.3s;">
+                    <div class="rounded-xl sm:rounded-2xl overflow-hidden shadow-xl sm:shadow-2xl">
+                        <img src="images/7.webp" alt="Carpenter at work" class="w-full h-auto">
+                    </div>
+                    <div class="absolute -bottom-4 -left-4 sm:-bottom-6 sm:-left-6 bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-lg sm:shadow-xl">
+                        <div class="flex items-center">
+                            <div class="w-8 h-8 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center text-white mr-3 sm:mr-4">
+                                <i class="fas fa-award text-sm sm:text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-dark text-sm sm:text-base">Award Winning</h3>
+                                <p class="text-gray-600 text-xs sm:text-sm">Craftsmanship</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 sm:py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-dark mb-3 sm:mb-4">Our Services</h2>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-2">We create unforgettable wedding experiences with end-to-end services designed to make your big day effortless and extraordinary.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Service 1 -->
+                <div class="bg-light rounded-xl sm:rounded-2xl p-6 sm:p-8 transition-transform duration-300 hover:-translate-y-2 reveal">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-full flex items-center justify-center text-white mb-4 sm:mb-6">
+                        <i class="fas fa-couch text-xl sm:text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-serif font-bold text-dark mb-3 sm:mb-4">Wedding Venues</h3>
+                    <p class="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">Transform your venue into a breathtaking space with our bespoke décor themes. From floral installations and stage setups to lighting and table styling, we craft every detail to perfection to match your vision.</p>
+                    <div class="rounded-lg sm:rounded-xl overflow-hidden mb-3 sm:mb-4">
+                        <img src="images/14.webp" alt="Custom furniture" class="w-full h-40 sm:h-48 object-cover">
+                    </div>
+                    <a href="https://alangkaar.com.sg/indian-wedding-venues-in-singapore/" class="text-primary font-medium flex items-center text-sm sm:text-base">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="bg-light rounded-xl sm:rounded-2xl p-6 sm:p-8 transition-transform duration-300 hover:-translate-y-2 reveal" style="animation-delay: 0.2s;">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-full flex items-center justify-center text-white mb-4 sm:mb-6">
+                        <i class="fas fa-home text-xl sm:text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-serif font-bold text-dark mb-3 sm:mb-4">Wedding Decorations</h3>
+                    <p class="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">Transform your venue into a breathtaking space with our bespoke décor themes. From floral installations and stage setups to lighting and table styling, we craft every detail to perfection to match your vision.</p>
+                    <div class="rounded-lg sm:rounded-xl overflow-hidden mb-3 sm:mb-4">
+                        <img src="images/decrations.webp" alt="Home renovation" class="w-full h-40 sm:h-48 object-cover">
+                    </div>
+                    <a href="https://alangkaar.com.sg/leading-indian-wedding-decor-in-singapore-alangkaar/" class="text-primary font-medium flex items-center text-sm sm:text-base">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="bg-light rounded-xl sm:rounded-2xl p-6 sm:p-8 transition-transform duration-300 hover:-translate-y-2 reveal" style="animation-delay: 0.4s;">
+                    <div class="w-12 h-12 sm:w-16 sm:h-16 bg-primary rounded-full flex items-center justify-center text-white mb-4 sm:mb-6">
+                        <i class="fas fa-tree text-xl sm:text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl sm:text-2xl font-serif font-bold text-dark mb-3 sm:mb-4">Wedding Photography</h3>
+                    <p class="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">Capture your most precious moments with artistic storytelling. Our professional wedding photographers specialize in candid, cinematic, and traditional styles</p>
+                    <div class="rounded-lg sm:rounded-xl overflow-hidden mb-3 sm:mb-4">
+                        <img src="images/weddingphotography.webp" alt="Outdoor structures" class="w-full h-40 sm:h-48 object-cover">
+                    </div>
+                    <a href="https://alangkaar.com.sg/best-indian-wedding-photography-and-videography-services-in-singapore/" class="text-primary font-medium flex items-center text-sm sm:text-base">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 sm:py-20 bg-light">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-dark mb-3 sm:mb-4">Our Gallery</h2>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-2">Explore our portfolio of completed woodworking projects</p>
+            </div>
+            
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 reveal">
+                <button class="filter-btn bg-primary text-white px-4 sm:px-6 py-2 rounded-full font-medium text-sm sm:text-base" data-filter="all">All</button>
+                <button class="filter-btn bg-white text-dark hover:bg-primary hover:text-white px-4 sm:px-6 py-2 rounded-full font-medium transition-colors text-sm sm:text-base" data-filter="furniture">Gallery1</button>
+                <button class="filter-btn bg-white text-dark hover:bg-primary hover:text-white px-4 sm:px-6 py-2 rounded-full font-medium transition-colors text-sm sm:text-base" data-filter="renovation">Gallery2</button>
+                <button class="filter-btn bg-white text-dark hover:bg-primary hover:text-white px-4 sm:px-6 py-2 rounded-full font-medium transition-colors text-sm sm:text-base" data-filter="outdoor">Gallery3</button>
+                
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6" id="gallery-container">
+                <!-- Gallery Item 1 -->
+                <div class="gallery-item rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-white reveal" data-category="furniture">
+                    <div class="h-48 sm:h-64 overflow-hidden relative">
+                        <img src="images/1.webp" alt="Modern Dining Set" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="gallery-overlay">
+                          <div class="text-white text-center p-4">
+                              
+                          </div>
+                      </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 2 -->
+                <div class="gallery-item rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-white reveal" data-category="renovation" style="animation-delay: 0.1s;">
+                    <div class="h-48 sm:h-64 overflow-hidden relative">
+                        <img src="images/2.webp" alt="Kitchen Renovation" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="gallery-overlay">
+                            <div class="text-white text-center p-4">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 3 -->
+                <div class="gallery-item rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-white reveal" data-category="outdoor" style="animation-delay: 0.2s;">
+                    <div class="h-48 sm:h-64 overflow-hidden relative">
+                        <img src="images/4.webp" alt="Garden Pergola" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="gallery-overlay">
+                            <div class="text-white text-center p-4">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 4 -->
+                <div class="gallery-item rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-white reveal" data-category="furniture" style="animation-delay: 0.3s;">
+                    <div class="h-48 sm:h-64 overflow-hidden relative">
+                        <img src="images/6.webp" alt="Custom Bookshelf" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="gallery-overlay">
+                            <div class="text-white text-center p-4">
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 5 -->
+                <div class="gallery-item rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-white reveal" data-category="furniture" style="animation-delay: 0.4s;">
+                    <div class="h-48 sm:h-64 overflow-hidden relative">
+                        <img src="images/5.webp" alt="Office Furniture" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="gallery-overlay">
+                            <div class="text-white text-center p-4">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Gallery Item 6 -->
+                <div class="gallery-item rounded-xl sm:rounded-2xl overflow-hidden shadow-lg bg-white reveal" data-category="outdoor" style="animation-delay: 0.5s;">
+                    <div class="h-48 sm:h-64 overflow-hidden relative">
+                        <img src="images/7.webp" alt="Deck Construction" class="w-full h-full object-cover transition-transform duration-500 hover:scale-110">
+                        <div class="gallery-overlay">
+                            <div class="text-white text-center p-4">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 sm:mt-12 reveal">
+                <a href="https://alangkaar.com.sg/indian-wedding-venues-in-singapore/" class="inline-block bg-primary hover:bg-dark text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-colors text-sm sm:text-base">View All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="py-16 sm:py-20 bg-white">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="text-center mb-12 sm:mb-16 reveal">
+                <h2 class="text-3xl sm:text-4xl font-serif font-bold text-dark mb-3 sm:mb-4">What Our Clients Say</h2>
+                <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-2">Hear from our satisfied customers about their experience with Alangkaar</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-light rounded-xl sm:rounded-2xl p-6 sm:p-8 reveal">
+                    <div class="flex items-center mb-4 sm:mb-6">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden mr-3 sm:mr-4">
+                            <img src="images/test1.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-dark text-sm sm:text-base">Jia Hui Lim</h3>
+                            <p class="text-gray-600 text-xs sm:text-sm">Engagement Ceremony</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-4 sm:mb-6 text-sm sm:text-base">"From the moment we walked into Singapore, we knew it was the perfect place for our engagement. The staff was incredibly warm and accommodating. The floral decorations and stage setup looked elegant and picture-perfect. We couldn’t have asked for a better experience!"</p>
+                    <div class="flex text-yellow-400 text-sm sm:text-base">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-light rounded-xl sm:rounded-2xl p-6 sm:p-8 reveal" style="animation-delay: 0.2s;">
+                    <div class="flex items-center mb-4 sm:mb-6">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden mr-3 sm:mr-4">
+                            <img src="images/test2.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-dark text-sm sm:text-base">Sarah Williams</h3>
+                            <p class="text-gray-600 text-xs sm:text-sm">Daughter’s Wedding</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-4 sm:mb-6 text-sm sm:text-base">"We hosted our daughter’s wedding at Singapore, and everything was handled with so much professionalism and care. The catering was outstanding, and the coordination team made sure every moment went smoothly. Our family and guests were full of compliments throughout the day."</p>
+                    <div class="flex text-yellow-400 text-sm sm:text-base">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-light rounded-xl sm:rounded-2xl p-6 sm:p-8 reveal" style="animation-delay: 0.4s;">
+                    <div class="flex items-center mb-4 sm:mb-6">
+                        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full overflow-hidden mr-3 sm:mr-4">
+                            <img src="images/test3.jpg" alt="Client" class="w-full h-full object-cover">
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-dark text-sm sm:text-base">Siti Mariam</h3>
+                            <p class="text-gray-600 text-xs sm:text-sm">Reception Party</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic mb-4 sm:mb-6 text-sm sm:text-base">"Our wedding at Singapore was everything we dreamed of and more. The décor, lighting, and ambiance were absolutely breathtaking. The team handled every detail so smoothly from guest seating to food service. It truly felt magical, and our guests couldn’t stop talking about how beautiful the venue was!"</p>
+                    <div class="flex text-yellow-400 text-sm sm:text-base">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-20 bg-light">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12">
+                <div class="reveal">
+                    <h2 class="text-3xl sm:text-4xl font-serif font-bold text-dark mb-4 sm:mb-6">Get In Touch</h2>
+                    <p class="text-base sm:text-lg text-gray-700 mb-6 sm:mb-8">Ready to start your wedding festival ? Contact us today for a free consultation and quote.</p>
+                    
+                    <div class="space-y-4 sm:space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center text-white mr-3 sm:mr-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-sm sm:text-base"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-dark mb-1 text-sm sm:text-base">Our Location</h3>
+                                <p class="text-gray-700 text-sm sm:text-base">21 Kerbau Road Singapore 219160
+                                  Alangkaar Building</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center text-white mr-3 sm:mr-4 flex-shrink-0">
+                                <i class="fas fa-phone text-sm sm:text-base"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-dark mb-1 text-sm sm:text-base">Phone Number</h3>
+                                <p class="text-gray-700 text-sm sm:text-base">+6584444005</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-start">
+                            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-primary rounded-full flex items-center justify-center text-white mr-3 sm:mr-4 flex-shrink-0">
+                                <i class="fas fa-envelope text-sm sm:text-base"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-dark mb-1 text-sm sm:text-base">Email Address</h3>
+                                <p class="text-gray-700 text-sm sm:text-base">sales@alangkaar.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 sm:mt-8">
+                        <h3 class="font-bold text-dark mb-3 sm:mb-4 text-sm sm:text-base">Follow Us</h3>
+                        <div class="flex space-x-3 sm:space-x-4">
+                            <a href="#" class="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center text-white hover:bg-dark transition-colors">
+                                <i class="fab fa-facebook-f text-sm sm:text-base"></i>
+                            </a>
+                            <a href="#" class="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center text-white hover:bg-dark transition-colors">
+                                <i class="fab fa-instagram text-sm sm:text-base"></i>
+                            </a>
+                            <a href="#" class="w-8 h-8 sm:w-10 sm:h-10 bg-primary rounded-full flex items-center justify-center text-white hover:bg-dark transition-colors">
+                                <i class="fab fa-pinterest text-sm sm:text-base"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg reveal" style="animation-delay: 0.3s;">
+                    <h3 class="text-xl sm:text-2xl font-serif font-bold text-dark mb-4 sm:mb-6">Request a Quote</h3>
+                    <form class="space-y-4 sm:space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                            <div>
+                                <label for="name" class="block text-gray-700 mb-2 text-sm sm:text-base">Your Name</label>
+                                <input type="text" id="name" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="John Doe">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-gray-700 mb-2 text-sm sm:text-base">Email Address</label>
+                                <input type="email" id="email" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="john@example.com">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="phone" class="block text-gray-700 mb-2 text-sm sm:text-base">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="(555) 123-4567">
+                        </div>
+                        
+                        <div>
+                            <label for="service" class="block text-gray-700 mb-2 text-sm sm:text-base">Service Interested In</label>
+                            <select id="service" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                                <option value="">Select a service</option>
+                                <option value="furniture">Wedding Venues</option>
+                                <option value="renovation">Wedding Decorations</option>
+                                <option value="outdoor">Wedding Photography</option>
+                                <option value="commercial">Wedding Catering</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-gray-700 mb-2 text-sm sm:text-base">Project Details</label>
+                            <textarea id="message" rows="4" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="Tell us about your project..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-primary hover:bg-dark text-white py-2 sm:py-3 rounded-full font-medium transition-colors text-sm sm:text-base">Submit Request</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!-- FAQ Section -->
+<section class="py-16 sm:py-20 bg-white">
+  <div class="container mx-auto px-4 sm:px-6">
+    <div class="text-center mb-12 sm:mb-16 reveal">
+      <h2 class="text-3xl sm:text-4xl font-serif font-bold text-gray-800 mb-3 sm:mb-4">
+        Frequently Asked Questions
+      </h2>
+      <p class="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-2">
+        Find answers to common questions about our wedding venue services in Singapore
+      </p>
+    </div>
+
+    <div class="max-w-4xl mx-auto">
+      <!-- FAQ Item 1 -->
+      <div class="faq-item border-b border-gray-200">
+        <div
+          class="py-4 sm:py-6 cursor-pointer flex justify-between items-center"
+          onclick="toggleFAQ(this)"
+        >
+          <h3 class="text-lg sm:text-xl text-gray-600 pr-4">
+            How far in advance should we book the wedding venue?
+          </h3>
+          <div class="faq-toggle text-amber-700 transform transition-transform duration-300">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+        <div class="faq-answer hidden">
+          <p class="text-gray-700 pb-4 sm:pb-6 text-sm sm:text-base">
+            We recommend booking your venue at least 3–6 months in advance,
+            especially during peak wedding seasons in Singapore. This ensures
+            your preferred date and hall are available.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 2 -->
+      <div class="faq-item border-b border-gray-200">
+        <div
+          class="py-4 sm:py-6 cursor-pointer flex justify-between items-center"
+          onclick="toggleFAQ(this)"
+        >
+          <h3 class="text-lg sm:text-xl text-gray-600 pr-4">
+            What is included in the venue package?
+          </h3>
+          <div class="faq-toggle text-amber-700 transform transition-transform duration-300">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+        <div class="faq-answer hidden">
+          <p class="text-gray-700 pb-4 sm:pb-6 text-sm sm:text-base">
+            Our wedding packages include venue rental, stage setup, lighting,
+            basic décor, seating arrangements, and air-conditioning. Optional
+            add-ons like catering, photography, and entertainment are also available.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 3 -->
+      <div class="faq-item border-b border-gray-200">
+        <div
+          class="py-4 sm:py-6 cursor-pointer flex justify-between items-center"
+          onclick="toggleFAQ(this)"
+        >
+          <h3 class="text-lg sm:text-xl text-gray-600 pr-4">
+            Do you provide catering services or can we bring our own caterer?
+          </h3>
+          <div class="faq-toggle text-amber-700 transform transition-transform duration-300">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+        <div class="faq-answer hidden">
+          <p class="text-gray-700 pb-4 sm:pb-6 text-sm sm:text-base">
+            Yes, we offer in-house catering featuring both local Singaporean and
+            international cuisines. If you prefer an external caterer, we’re
+            happy to coordinate with them to ensure smooth service and setup.
+          </p>
+        </div>
+      </div>
+
+      <!-- FAQ Item 4 -->
+      <div class="faq-item border-b border-gray-200">
+        <div
+          class="py-4 sm:py-6 cursor-pointer flex justify-between items-center"
+          onclick="toggleFAQ(this)"
+        >
+          <h3 class="text-lg sm:text-xl text-gray-600 pr-4">
+            Is parking available for guests?
+          </h3>
+          <div class="faq-toggle text-amber-700 transform transition-transform duration-300">
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+        <div class="faq-answer hidden">
+          <p class="text-gray-700 pb-4 sm:pb-6 text-sm sm:text-base">
+            Yes, we provide ample on-site parking for guests, with valet options
+            available upon request. For larger gatherings, we can assist in
+            arranging nearby overflow parking.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-8 sm:mt-12 reveal">
+      <p class="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">
+        Still have questions?
+      </p>
+      <a
+        href="#contact"
+        class="inline-block bg-amber-700 hover:bg-amber-800 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-full font-medium transition-colors text-sm sm:text-base"
+        >Contact Us</a
+      >
+    </div>
+  </div>
+</section>
+
+<!-- WhatsApp Floating Icon -->
+<div class="fixed bottom-6 right-6 z-50">
+  <a href="https://wa.me/6584444005?text=Hi%20Alangkaar,%20I'm%20interested%20in%20your%20woodworking%20services" 
+     target="_blank" 
+     class="whatsapp-float bg-green-500 hover:bg-green-600 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl animate-bounce">
+      <i class="fab fa-whatsapp text-2xl"></i>
+  </a>
+</div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8 sm:py-12">
+        <div class="container mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+                <div>
+                    <div class="flex items-center mb-4 sm:mb-6">
+                        <h2 class="text-xl sm:text-2xl font-serif font-bold">Alangkaar</h2>
+                    </div>
+                    <p class="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">At Alangkaar, we bring over 15 years of excellence in creating unforgettable weddings through elegant venues, bespoke decorations, and world-class services. From intimate gatherings to grand celebrations, our team transforms every event into a timeless memory.</p>
+                    <div class="flex space-x-3 sm:space-x-4">
+                        <a href="#" class="w-8 h-8 sm:w-10 sm:h-10 bg-primary/20 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+                            <i class="fab fa-facebook-f text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 sm:w-10 sm:h-10 bg-primary/20 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+                            <i class="fab fa-instagram text-sm"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 sm:w-10 sm:h-10 bg-primary/20 rounded-full flex items-center justify-center text-white hover:bg-primary transition-colors">
+                            <i class="fab fa-pinterest text-sm"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-6">Quick Links</h3>
+                    <ul class="space-y-2 sm:space-y-3">
+                        <li><a href="#home" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">Home</a></li>
+                        <li><a href="#about" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">About Us</a></li>
+                        <li><a href="#services" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">Services</a></li>
+                        <li><a href="#gallery" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">Gallery</a></li>
+                        <li><a href="#contact" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-6">Services</h3>
+                    <ul class="space-y-2 sm:space-y-3">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">Wedding Venues</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">Wedding Decorations</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">Wedding Photography</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors text-sm sm:text-base">Wedding Catering</a></li>
+                        
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-lg sm:text-xl font-bold mb-3 sm:mb-6">Contact Info</h3>
+                    <ul class="space-y-2 sm:space-y-3">
+                        <li class="flex items-start">
+                            <i class="fas fa-map-marker-alt text-primary mr-2 sm:mr-3 mt-1 text-sm"></i>
+                            <span class="text-gray-300 text-sm sm:text-base">21 Kerbau Road Singapore 219160
+                              Alangkaar Building</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-phone text-primary mr-2 sm:mr-3 mt-1 text-sm"></i>
+                            <span class="text-gray-300 text-sm sm:text-base">+6584444005</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-envelope text-primary mr-2 sm:mr-3 mt-1 text-sm"></i>
+                            <span class="text-gray-300 text-sm sm:text-base">sales@alangkaar.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 sm:mt-12 pt-6 sm:pt-8 text-center text-gray-400 text-sm sm:text-base">
+                <p>&copy; 2025 Alangkaar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
