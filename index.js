@@ -126,3 +126,25 @@ function toggleFAQ(element) {
       icon.classList.add("rotate-180");
     }
   }
+
+
+  const scriptURL = 'https://script.google.com/macros/s/AKfycbxELopkw9hXJbdxFb8CwKJPVi5RvH31ipB3-Lp2xieLlzGAWrIX0YxjM8DzmMlqsYKZdg/exec'; // paste your Google Apps Script URL here
+
+  document.getElementById('myForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(e.target).entries());
+    
+    fetch(scriptURL, {
+      method: 'POST',
+      body: JSON.stringify(formData),
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('response').textContent = "Form submitted successfully!";
+      e.target.reset();
+    })
+    .catch(err => {
+      console.error(err);
+      document.getElementById('response').textContent = "Error submitting form.";
+    });
+  });

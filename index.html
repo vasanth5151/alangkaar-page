@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alangkaar | Professional Carpentry Services</title>
+    <title>Alangkaar | wedding venue arranging patner</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -519,8 +519,20 @@
                             </div>
                             <div>
                                 <h3 class="font-bold text-dark mb-1 text-sm sm:text-base">Our Location</h3>
-                                <p class="text-gray-700 text-sm sm:text-base">21 Kerbau Road Singapore 219160
-                                  Alangkaar Building</p>
+                                <p class="text-gray-700 text-sm sm:text-base">Sri Thendayuthapani Temple
+                                    15, Tank Road, Singapore – 238065</p>
+                                <!-- Google Map Embed -->
+                                <div class="mt-3 rounded-lg overflow-hidden shadow-md">
+                                    <iframe 
+                                    src="https://www.google.com/maps?q=Sri+Thendayuthapani+Temple,+15+Tank+Road,+Singapore+238065&output=embed" 
+                                    width="100%" 
+                                    height="250" 
+                                    style="border:0;" 
+                                    allowfullscreen="" 
+                                    loading="lazy" 
+                                    referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                </div>
                             </div>
                         </div>
                         
@@ -563,26 +575,26 @@
                 
                 <div class="bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg reveal" style="animation-delay: 0.3s;">
                     <h3 class="text-xl sm:text-2xl font-serif font-bold text-dark mb-4 sm:mb-6">Request a Quote</h3>
-                    <form class="space-y-4 sm:space-y-6">
+                    <form class="space-y-4 sm:space-y-6" id="myForm">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                             <div>
                                 <label for="name" class="block text-gray-700 mb-2 text-sm sm:text-base">Your Name</label>
-                                <input type="text" id="name" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="John Doe">
+                                <input type="text" id="name" name="name" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="John Doe">
                             </div>
                             <div>
                                 <label for="email" class="block text-gray-700 mb-2 text-sm sm:text-base">Email Address</label>
-                                <input type="email" id="email" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="john@example.com">
+                                <input type="email" name="email" id="email" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="john@example.com">
                             </div>
                         </div>
                         
                         <div>
                             <label for="phone" class="block text-gray-700 mb-2 text-sm sm:text-base">Phone Number</label>
-                            <input type="tel" id="phone" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="(555) 123-4567">
+                            <input type="tel" name="phonenumber" id="phone" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="(555) 123-4567">
                         </div>
                         
                         <div>
                             <label for="service" class="block text-gray-700 mb-2 text-sm sm:text-base">Service Interested In</label>
-                            <select id="service" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
+                            <select id="service" name="services" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base">
                                 <option value="">Select a service</option>
                                 <option value="furniture">Wedding Venues</option>
                                 <option value="renovation">Wedding Decorations</option>
@@ -594,11 +606,12 @@
                         
                         <div>
                             <label for="message" class="block text-gray-700 mb-2 text-sm sm:text-base">Project Details</label>
-                            <textarea id="message" rows="4" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="Tell us about your project..."></textarea>
+                            <textarea id="message" name="message" rows="4" class="w-full px-3 sm:px-4 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-sm sm:text-base" placeholder="Tell us about your project..."></textarea>
                         </div>
                         
                         <button type="submit" class="w-full bg-primary hover:bg-dark text-white py-2 sm:py-3 rounded-full font-medium transition-colors text-sm sm:text-base">Submit Request</button>
                     </form>
+                    <p id="response"></p>
                 </div>
             </div>
         </div>
@@ -777,8 +790,8 @@
                     <ul class="space-y-2 sm:space-y-3">
                         <li class="flex items-start">
                             <i class="fas fa-map-marker-alt text-primary mr-2 sm:mr-3 mt-1 text-sm"></i>
-                            <span class="text-gray-300 text-sm sm:text-base">21 Kerbau Road Singapore 219160
-                              Alangkaar Building</span>
+                            <span class="text-gray-300 text-sm sm:text-base">Sri Thendayuthapani Temple
+                                15, Tank Road, Singapore – 238065</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-phone text-primary mr-2 sm:mr-3 mt-1 text-sm"></i>
